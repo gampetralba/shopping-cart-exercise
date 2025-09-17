@@ -1,0 +1,22 @@
+{
+  "name": "shopping-cart-exercise",
+  "version": "1.0.0",
+  "description": "Amaysim shopping cart implementation with flexible pricing rules",
+  "main": "src/index.js",
+  "type": "module",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:watch": "node --test --watch test/*.test.js",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
