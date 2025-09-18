@@ -8,8 +8,11 @@ A flexible shopping cart implementation for Amaysim's SIM card pricing system.
 # Run the demo (shows all 4 required scenarios)
 npm run demo
 
-# Run tests
+# Run all tests
 npm test
+
+# Run just the 4 required scenarios
+npm run test:scenarios
 
 # See custom examples
 npm run examples:custom-rules
