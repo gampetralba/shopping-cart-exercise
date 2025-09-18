@@ -1,9 +1,11 @@
 import { CartItem } from "../models/CartItem.js";
+import { PricingRulesEngine } from "../pricing/PricingRulesEngine.js";
 
 export class ShoppingCart {
-  constructor() {
+  constructor(pricingRules = []) {
     this._items = [];
     this._promoCode = null;
+    this.pricingEngine = new PricingRulesEngine(pricingRules);
   }
 
   add(item, promoCode) {
@@ -31,20 +33,16 @@ export class ShoppingCart {
   }
 
   get items() {
-    return this._items;
+    const result = this.pricingEngine.calculateTotal(this._items, this._promoCode);
+    return result.items;
   }
 
   get total() {
-    let subtotal = 0;
-
-    for (const item of this._items) {
-      subtotal += item.product.price * item.quantity;
-    }
-
-    return Number(subtotal.toFixed(2));
+    const result = this.pricingEngine.calculateTotal(this._items, this._promoCode);
+    return result.total;
   }
 }
 
-ShoppingCart.new = function () {
-  return new ShoppingCart();
+ShoppingCart.new = function (pricingRules = []) {
+  return new ShoppingCart(pricingRules);
 };
