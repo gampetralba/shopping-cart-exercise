@@ -11,7 +11,9 @@
   "scripts": {
     "test": "node --test test/*.test.js",
     "test:watch": "node --test --watch test/*.test.js",
-    "start": "node src/index.js"
+    "demo": "node examples/demo.js",
+    "examples:custom-rules": "node examples/custom-rules.js",
+    "examples:all": "npm run demo && echo '' && npm run examples:custom-rules"
   },
   "keywords": [],
   "author": "",
