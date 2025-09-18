@@ -2,7 +2,7 @@ import { Product } from '../models/Product.js';
 
 /**
  * Product catalog containing all available SIM card products and data packs.
- * @type {Object<string, import('../models/Product.js').Product>}
+ * @type {Object<string, Product>}
  */
 export const products = {
   ult_small: new Product('ult_small', 'Unlimited 1GB', 24.90),
@@ -14,7 +14,7 @@ export const products = {
 /**
  * Retrieves a product by its code.
  * @param {string} code - Product code to look up
- * @returns {import('../models/Product.js').Product|undefined} Product if found, undefined otherwise
+ * @returns {Product|undefined} Product if found, undefined otherwise
  */
 export function getProduct(code) {
   return products[code];

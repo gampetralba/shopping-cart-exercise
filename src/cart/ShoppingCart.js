@@ -9,7 +9,7 @@ import { PricingRulesEngine } from "../pricing/PricingRulesEngine.js";
 export class ShoppingCart {
   /**
    * Creates a new ShoppingCart instance.
-   * @param {Array<import('../pricing/PricingRule.js').PricingRule>} [pricingRules=[]] - Array of pricing rules to apply
+   * @param {Array<PricingRule>} [pricingRules=[]] - Array of pricing rules to apply
    * @throws {TypeError} When pricingRules is not an array or contains invalid rules
    */
   constructor(pricingRules = []) {
@@ -21,18 +21,18 @@ export class ShoppingCart {
       throw new TypeError('All pricing rules must have an apply method');
     }
 
-    /** @type {Array<import('../models/CartItem.js').CartItem>} */
+    /** @type {Array<CartItem>} */
     this._items = [];
     /** @type {string|null} */
     this._promoCode = null;
-    /** @type {import('../pricing/PricingRulesEngine.js').PricingRulesEngine} */
+    /** @type {PricingRulesEngine} */
     this.pricingEngine = new PricingRulesEngine(pricingRules);
   }
 
   /**
    * Adds an item to the cart and optionally applies a promo code.
    * This method follows the required interface from the specification.
-   * @param {import('../models/Product.js').Product} item - Product to add to cart
+   * @param {Product} item - Product to add to cart
    * @param {string} [promoCode] - Optional promo code to apply
    * @throws {TypeError|RangeError} When item is invalid or promo code is invalid
    */
@@ -47,7 +47,7 @@ export class ShoppingCart {
   /**
    * Adds a product to the cart (internal method).
    * If the product already exists, increments the quantity.
-   * @param {import('../models/Product.js').Product} product - Product to add
+   * @param {Product} product - Product to add
    * @throws {TypeError|RangeError} When product is invalid
    */
   addItem(product) {
@@ -81,7 +81,7 @@ export class ShoppingCart {
 
   /**
    * Gets all items in the cart after applying pricing rules.
-   * @returns {Array<import('../models/CartItem.js').CartItem>} Array of cart items with quantities
+   * @returns {Array<CartItem>} Array of cart items with quantities
    */
   get items() {
     const result = this.pricingEngine.calculateTotal(this._items, this._promoCode);
@@ -129,7 +129,7 @@ export class ShoppingCart {
 /**
  * Factory method to create a new ShoppingCart instance.
  * @static
- * @param {Array<import('../pricing/PricingRule.js').PricingRule>} [pricingRules=[]] - Array of pricing rules
+ * @param {Array<PricingRule>} [pricingRules=[]] - Array of pricing rules
  * @returns {ShoppingCart} New ShoppingCart instance
  */
 ShoppingCart.new = function (pricingRules = []) {

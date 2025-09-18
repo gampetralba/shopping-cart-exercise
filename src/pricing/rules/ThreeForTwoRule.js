@@ -18,7 +18,7 @@ export class ThreeForTwoRule extends PricingRule {
 
   /**
    * Applies the 3-for-2 discount to matching products.
-   * @param {Array<import('../../models/CartItem.js').CartItem>} items - Cart items to process
+   * @param {Array<CartItem>} items - Cart items to process
    * @param {string|null} promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with discount applied for every 3rd item
    */
