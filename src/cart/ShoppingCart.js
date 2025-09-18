@@ -35,7 +35,13 @@ export class ShoppingCart {
   }
 
   get total() {
-    return 0;
+    let subtotal = 0;
+
+    for (const item of this._items) {
+      subtotal += item.product.price * item.quantity;
+    }
+
+    return Number(subtotal.toFixed(2));
   }
 }
 
