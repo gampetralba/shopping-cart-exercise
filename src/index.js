@@ -1,9 +1,9 @@
-import { ShoppingCart } from "./cart/ShoppingCart.js";
-import { createDefaultPricingRules } from "./rules/index.js";
-import { catalog } from "./catalog/products.js";
+// Export the core components for flexible usage
+export { ShoppingCart } from "./cart/ShoppingCart.js";
+export { products } from "./catalog/products.js";
 
-// Example usage - will be expanded later
-const pricingRules = createDefaultPricingRules();
-const cart = new ShoppingCart(pricingRules);
-
-export { ShoppingCart, catalog, createDefaultPricingRules };
+// Export all pricing rules for custom configuration
+export { ThreeForTwoRule } from "./pricing/rules/ThreeForTwoRule.js";
+export { BulkDiscountRule } from "./pricing/rules/BulkDiscountRule.js";
+export { BundleRule } from "./pricing/rules/BundleRule.js";
+export { PromoCodeRule } from "./pricing/rules/PromoCodeRule.js";
