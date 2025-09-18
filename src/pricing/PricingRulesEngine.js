@@ -9,6 +9,7 @@ export class PricingRulesEngine {
     let processedItems = [...items];
     let discount = 0;
     let additionalItems = [];
+    let promoCodeDiscount = 0;
 
     for (const rule of this.rules) {
       const result = rule.apply(processedItems, promoCode);
@@ -24,6 +25,10 @@ export class PricingRulesEngine {
       if (result.processedItems) {
         processedItems = result.processedItems;
       }
+
+      if (result.promoCodeDiscount) {
+        promoCodeDiscount = result.promoCodeDiscount;
+      }
     }
 
     let subtotal = 0;
@@ -32,10 +37,11 @@ export class PricingRulesEngine {
       subtotal += item.product.price * item.quantity;
     }
 
-    const total = subtotal - discount;
+    const totalAfterDiscounts = subtotal - discount;
+    const finalTotal = totalAfterDiscounts - (totalAfterDiscounts * promoCodeDiscount);
 
     return {
-      total: Number(total.toFixed(2)),
+      total: Number(finalTotal.toFixed(2)),
       items: processedItems.concat(additionalItems),
     };
   }
