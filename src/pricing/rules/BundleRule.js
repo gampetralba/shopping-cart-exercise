@@ -21,10 +21,10 @@ export class BundleRule extends PricingRule {
   /**
    * Adds free bundled products based on trigger product quantity.
    * @param {Array<CartItem>} items - Cart items to process
-   * @param {string|null} promoCode - Applied promo code (not used by this rule)
+   * @param {string|null} _promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with free bundled items added
    */
-  apply(items, promoCode) {
+  apply(items, _promoCode) {
     const triggerItem = items.find(
       (item) => item.product.code === this.triggerProductCode,
     );

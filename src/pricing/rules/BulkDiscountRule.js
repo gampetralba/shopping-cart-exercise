@@ -1,4 +1,4 @@
-import { PricingRule } from '../PricingRule.js';
+import { PricingRule } from "../PricingRule.js";
 
 /**
  * Pricing rule that implements bulk discount pricing.
@@ -22,11 +22,13 @@ export class BulkDiscountRule extends PricingRule {
   /**
    * Applies bulk discount when quantity meets minimum threshold.
    * @param {Array<CartItem>} items - Cart items to process
-   * @param {string|null} promoCode - Applied promo code (not used by this rule)
+   * @param {string|null} _promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with discount for bulk pricing
    */
-  apply(items, promoCode) {
-    const targetItem = items.find(item => item.product.code === this.productCode);
+  apply(items, _promoCode) {
+    const targetItem = items.find(
+      (item) => item.product.code === this.productCode,
+    );
 
     if (!targetItem || targetItem.quantity < this.minQuantity) {
       return { processedItems: items, discount: 0, additionalItems: [] };
@@ -39,7 +41,7 @@ export class BulkDiscountRule extends PricingRule {
     return {
       processedItems: items,
       discount: discount,
-      additionalItems: []
+      additionalItems: [],
     };
   }
 }

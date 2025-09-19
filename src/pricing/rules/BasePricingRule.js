@@ -1,4 +1,4 @@
-import { PricingRule } from '../PricingRule.js';
+import { PricingRule } from "../PricingRule.js";
 
 /**
  * Default pricing rule that applies no discounts or modifications.
@@ -9,14 +9,14 @@ export class BasePricingRule extends PricingRule {
   /**
    * Returns items unchanged with no discounts applied.
    * @param {Array<CartItem>} items - Cart items to process
-   * @param {string|null} promoCode - Applied promo code (not used by this rule)
+   * @param {string|null} _promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with no modifications
    */
-  apply(items, promoCode) {
+  apply(items, _promoCode) {
     return {
       processedItems: items,
       discount: 0,
-      additionalItems: []
+      additionalItems: [],
     };
   }
 }

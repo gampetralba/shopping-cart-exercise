@@ -18,10 +18,10 @@ export class ThreeForTwoRule extends PricingRule {
   /**
    * Applies the 3-for-2 discount to matching products.
    * @param {Array<CartItem>} items - Cart items to process
-   * @param {string|null} promoCode - Applied promo code (not used by this rule)
+   * @param {string|null} _promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with discount applied for every 3rd item
    */
-  apply(items, promoCode) {
+  apply(items, _promoCode) {
     const targetItem = items.find(item => item.product.code === this.productCode);
 
     if (!targetItem) {
