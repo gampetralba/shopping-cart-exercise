@@ -38,7 +38,9 @@ export class PricingRulesEngine {
     }
 
     const totalAfterDiscounts = subtotal - discount;
-    const finalTotal = totalAfterDiscounts - (totalAfterDiscounts * promoCodeDiscount);
+
+    const finalTotal =
+      totalAfterDiscounts - totalAfterDiscounts * promoCodeDiscount;
 
     return {
       total: Number(finalTotal.toFixed(2)),
