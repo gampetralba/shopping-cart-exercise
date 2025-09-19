@@ -1,4 +1,4 @@
-import { PricingRule } from '../PricingRule.js';
+import { PricingRule } from "../PricingRule.js";
 
 /**
  * Pricing rule that implements a "3 for 2" promotion.
@@ -22,7 +22,9 @@ export class ThreeForTwoRule extends PricingRule {
    * @returns {Object} Result with discount applied for every 3rd item
    */
   apply(items, _promoCode) {
-    const targetItem = items.find(item => item.product.code === this.productCode);
+    const targetItem = items.find(
+      (item) => item.product.code === this.productCode,
+    );
 
     if (!targetItem) {
       return { processedItems: items, discount: 0, additionalItems: [] };
@@ -34,7 +36,7 @@ export class ThreeForTwoRule extends PricingRule {
     return {
       processedItems: items,
       discount: discount,
-      additionalItems: []
+      additionalItems: [],
     };
   }
 }

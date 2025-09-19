@@ -14,11 +14,14 @@ export class ShoppingCart {
    */
   constructor(pricingRules = []) {
     if (pricingRules !== null && !Array.isArray(pricingRules)) {
-      throw new TypeError('Pricing rules must be an array');
+      throw new TypeError("Pricing rules must be an array");
     }
 
-    if (pricingRules && pricingRules.some(rule => typeof rule.apply !== 'function')) {
-      throw new TypeError('All pricing rules must have an apply method');
+    if (
+      pricingRules &&
+      pricingRules.some((rule) => typeof rule.apply !== "function")
+    ) {
+      throw new TypeError("All pricing rules must have an apply method");
     }
 
     /** @type {Array<CartItem>} */
@@ -71,10 +74,10 @@ export class ShoppingCart {
    */
   applyPromoCode(code) {
     if (code === null) {
-      throw new TypeError('Promo code cannot be null');
+      throw new TypeError("Promo code cannot be null");
     }
-    if (code !== undefined && typeof code !== 'string') {
-      throw new TypeError('Promo code must be a string');
+    if (code !== undefined && typeof code !== "string") {
+      throw new TypeError("Promo code must be a string");
     }
     this._promoCode = code;
   }
@@ -84,7 +87,10 @@ export class ShoppingCart {
    * @returns {Array<CartItem>} Array of cart items with quantities
    */
   get items() {
-    const result = this.pricingEngine.calculateTotal(this._items, this._promoCode);
+    const result = this.pricingEngine.calculateTotal(
+      this._items,
+      this._promoCode,
+    );
     return result.items;
   }
 
@@ -93,7 +99,10 @@ export class ShoppingCart {
    * @returns {number} Total cart value in dollars
    */
   get total() {
-    const result = this.pricingEngine.calculateTotal(this._items, this._promoCode);
+    const result = this.pricingEngine.calculateTotal(
+      this._items,
+      this._promoCode,
+    );
     return result.total;
   }
 
@@ -104,24 +113,32 @@ export class ShoppingCart {
    * @throws {TypeError|RangeError} When product is invalid
    */
   _validateProduct(product) {
-    if (!product || typeof product !== 'object') {
-      throw new TypeError('Product must be a valid object');
+    if (!product || typeof product !== "object") {
+      throw new TypeError("Product must be a valid object");
     }
 
-    if (!product.code || typeof product.code !== 'string' || product.code.trim() === '') {
-      throw new RangeError('Product must have a non-empty code');
+    if (
+      !product.code ||
+      typeof product.code !== "string" ||
+      product.code.trim() === ""
+    ) {
+      throw new RangeError("Product must have a non-empty code");
     }
 
-    if (!product.name || typeof product.name !== 'string' || product.name.trim() === '') {
-      throw new RangeError('Product must have a non-empty name');
+    if (
+      !product.name ||
+      typeof product.name !== "string" ||
+      product.name.trim() === ""
+    ) {
+      throw new RangeError("Product must have a non-empty name");
     }
 
-    if (typeof product.price !== 'number' || isNaN(product.price)) {
-      throw new TypeError('Product price must be a valid number');
+    if (typeof product.price !== "number" || isNaN(product.price)) {
+      throw new TypeError("Product price must be a valid number");
     }
 
     if (product.price < 0) {
-      throw new RangeError('Product price cannot be negative');
+      throw new RangeError("Product price cannot be negative");
     }
   }
 }

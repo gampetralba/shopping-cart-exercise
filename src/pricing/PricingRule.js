@@ -14,6 +14,6 @@ export class PricingRule {
    * @throws {Error} When not implemented by subclass
    */
   apply(items, promoCode) {
-    throw new Error('PricingRule.apply() must be implemented by subclass');
+    throw new Error("PricingRule.apply() must be implemented by subclass");
   }
 }
