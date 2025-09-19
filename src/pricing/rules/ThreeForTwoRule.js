@@ -12,7 +12,6 @@ export class ThreeForTwoRule extends PricingRule {
    */
   constructor(productCode) {
     super();
-    /** @type {string} */
     this.productCode = productCode;
   }
 

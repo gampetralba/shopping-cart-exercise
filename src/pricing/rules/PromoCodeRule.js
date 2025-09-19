@@ -13,9 +13,7 @@ export class PromoCodeRule extends PricingRule {
    */
   constructor(validCode, discountPercentage) {
     super();
-    /** @type {string} */
     this.validCode = validCode;
-    /** @type {number} */
     this.discountPercentage = discountPercentage;
   }
 

@@ -10,7 +10,6 @@ export class PricingRulesEngine {
    * @param {Array<PricingRule>} [rules=[]] - Array of pricing rules to apply
    */
   constructor(rules = []) {
-    /** @type {Array<PricingRule>} */
     this.rules = rules.length > 0 ? rules : [new BasePricingRule()];
   }
 

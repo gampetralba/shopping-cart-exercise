@@ -14,11 +14,8 @@ export class BulkDiscountRule extends PricingRule {
    */
   constructor(productCode, minQuantity, discountedPrice) {
     super();
-    /** @type {string} */
     this.productCode = productCode;
-    /** @type {number} */
     this.minQuantity = minQuantity;
-    /** @type {number} */
     this.discountedPrice = discountedPrice;
   }
 

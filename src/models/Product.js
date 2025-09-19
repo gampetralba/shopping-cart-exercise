@@ -10,11 +10,8 @@ export class Product {
    * @param {number} price - Product price in dollars
    */
   constructor(code, name, price) {
-    /** @type {string} */
     this.code = code;
-    /** @type {string} */
     this.name = name;
-    /** @type {number} */
     this.price = price;
   }
 }

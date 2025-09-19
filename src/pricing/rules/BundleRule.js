@@ -14,9 +14,7 @@ export class BundleRule extends PricingRule {
    */
   constructor(triggerProductCode, bundledProduct) {
     super();
-    /** @type {string} */
     this.triggerProductCode = triggerProductCode;
-    /** @type {Product} */
     this.bundledProduct = bundledProduct;
   }
 

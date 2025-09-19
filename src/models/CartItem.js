@@ -9,9 +9,7 @@ export class CartItem {
    * @param {number} [quantity=1] - The quantity of the product
    */
   constructor(product, quantity = 1) {
-    /** @type {Product} */
     this.product = product;
-    /** @type {number} */
     this.quantity = quantity;
   }
 }
