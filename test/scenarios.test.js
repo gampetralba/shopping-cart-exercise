@@ -1,4 +1,4 @@
-import { test } from "node:test";
+import { test, describe } from "node:test";
 import assert from "node:assert";
 import { ShoppingCart } from "../src/cart/ShoppingCart.js";
 import { products } from "../src/catalog/products.js";
@@ -14,7 +14,8 @@ const pricingRules = [
   new PromoCodeRule("I<3AMAYSIM", 10),
 ];
 
-test("Scenario 1: 3 x ult_small, 1 x ult_large", () => {
+describe("Required Scenarios", () => {
+  test("Scenario 1: 3 x ult_small, 1 x ult_large", () => {
   const cart = ShoppingCart.new(pricingRules);
   cart.add(products.ult_small);
   cart.add(products.ult_small);
@@ -95,4 +96,5 @@ test("Scenario 4: 1 x ult_small, 1 x 1gb with promo code I<3AMAYSIM", () => {
 
   assert.strictEqual(ultSmallItems[0].quantity, 1);
   assert.strictEqual(dataPackItems[0].quantity, 1);
+  });
 });
