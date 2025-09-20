@@ -29,7 +29,12 @@ cart1.add(products.ult_small);
 cart1.add(products.ult_small);
 cart1.add(products.ult_large);
 console.log(`   Total: $${cart1.total} (Expected: $94.70)`);
-console.log(`   Items: ${cart1.items.length} items in cart`);
+console.log(`   Items in cart:`);
+cart1.items.forEach((item) => {
+  console.log(
+    `     - ${item.quantity}x ${item.product.name}`,
+  );
+});
 console.log(
   "   Promotion: 3-for-2 deal applied (pay for 2 out of 3 Unlimited 1GB)\n",
 );
@@ -44,7 +49,12 @@ cart2.add(products.ult_large);
 cart2.add(products.ult_large);
 cart2.add(products.ult_large);
 console.log(`   Total: $${cart2.total} (Expected: $209.40)`);
-console.log(`   Items: ${cart2.items.length} items in cart`);
+console.log(`   Items in cart:`);
+cart2.items.forEach((item) => {
+  console.log(
+    `     - ${item.quantity}x ${item.product.name}`,
+  );
+});
 console.log(
   "   Promotion: Bulk discount applied (4+ Unlimited 5GB at $39.90 each)\n",
 );
@@ -56,7 +66,12 @@ cart3.add(products.ult_small);
 cart3.add(products.ult_medium);
 cart3.add(products.ult_medium);
 console.log(`   Total: $${cart3.total} (Expected: $84.70)`);
-console.log(`   Items: ${cart3.items.length} items in cart`);
+console.log(`   Items in cart:`);
+cart3.items.forEach((item) => {
+  console.log(
+    `     - ${item.quantity}x ${item.product.name}`,
+  );
+});
 console.log("   Promotion: Free 1GB Data-pack with each Unlimited 2GB\n");
 
 // Scenario 4: 1 x ult_small, 1 x 1gb + promo code
@@ -67,7 +82,12 @@ const cart4 = new ShoppingCart(pricingRules);
 cart4.add(products.ult_small);
 cart4.add(products["1gb"], "I<3AMAYSIM");
 console.log(`   Total: $${cart4.total} (Expected: $31.32)`);
-console.log(`   Items: ${cart4.items.length} items in cart`);
+console.log(`   Items in cart:`);
+cart4.items.forEach((item) => {
+  console.log(
+    `     - ${item.quantity}x ${item.product.name}`,
+  );
+});
 console.log(
   '   Promotion: 10% discount applied with promo code "I<3AMAYSIM"\n',
 );
