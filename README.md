@@ -2,6 +2,33 @@
 
 A flexible shopping cart implementation for Amaysim's SIM card pricing system.
 
+## Installation
+
+### Prerequisites
+
+- **Node.js** (version 18 or higher)
+  - Download from [nodejs.org](https://nodejs.org/) if not installed
+  - Verify installation: `node --version`
+
+### Setup Steps
+
+1. **Clone or download this repository**
+
+   ```bash
+   git clone https://github.com/gampetralba/shopping-cart-exercise.git
+   cd shopping-cart-exercise
+   ```
+
+2. **Verify installation**
+
+   ```bash
+   npm test
+   ```
+
+   If all tests pass, the setup is successful!
+
+   _Note: No `npm install` needed - this project has no external dependencies._
+
 ## Quick Start
 
 ```bash
@@ -21,6 +48,7 @@ npm run examples:custom-rules
 ## Requirements
 
 ✅ All 4 test scenarios implemented:
+
 1. 3 x ult_small, 1 x ult_large → $94.70
 2. 2 x ult_small, 4 x ult_large → $209.40
 3. 1 x ult_small, 2 x ult_medium → $84.70
@@ -29,18 +57,25 @@ npm run examples:custom-rules
 ## Usage
 
 ```javascript
-import { ShoppingCart, products, ThreeForTwoRule, BulkDiscountRule, BundleRule, PromoCodeRule } from './src/index.js';
+import {
+  ShoppingCart,
+  products,
+  ThreeForTwoRule,
+  BulkDiscountRule,
+  BundleRule,
+  PromoCodeRule,
+} from "./src/index.js";
 
 const pricingRules = [
-  new ThreeForTwoRule('ult_small'),
-  new BulkDiscountRule('ult_large', 4, 39.90),
-  new BundleRule('ult_medium', products['1gb']),
-  new PromoCodeRule('I<3AMAYSIM', 10)
+  new ThreeForTwoRule("ult_small"),
+  new BulkDiscountRule("ult_large", 4, 39.9),
+  new BundleRule("ult_medium", products["1gb"]),
+  new PromoCodeRule("I<3AMAYSIM", 10),
 ];
 
 const cart = new ShoppingCart(pricingRules);
 cart.add(products.ult_small);
-cart.add(products.ult_large, 'I<3AMAYSIM');
+cart.add(products.ult_large, "I<3AMAYSIM");
 
 console.log(cart.total); // Final price
 ```
@@ -48,6 +83,7 @@ console.log(cart.total); // Final price
 ## Architecture
 
 Uses **Strategy Pattern** for flexible pricing rules:
+
 - Easy to add new promotions
 - Each rule is independently testable
 - Rules can be combined or used separately
