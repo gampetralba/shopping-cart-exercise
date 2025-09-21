@@ -110,24 +110,21 @@ describe("Edge Cases", () => {
       cart.add(products.ult_small);
       cart.add(products["1gb"], "INVALID_CODE");
 
-      const expectedTotal = 24.9 + 9.9;
-      assert.strictEqual(cart.total, expectedTotal);
+      assert.strictEqual(cart.total, 34.8); // 24.9 + 9.9
     });
 
     test("applies to single item", () => {
       const cart = ShoppingCart.new(pricingRules);
       cart.add(products.ult_small, "I<3AMAYSIM");
 
-      const expectedTotal = 24.9 * 0.9; // 10% off
-      assert.strictEqual(cart.total, 22.41);
+      assert.strictEqual(cart.total, 22.41); // 24.9 * 0.9 (10% off)
     });
 
     test("with bundle: free item not discounted separately", () => {
       const cart = ShoppingCart.new(pricingRules);
       cart.add(products.ult_medium, "I<3AMAYSIM");
 
-      const expectedTotal = 29.9 * 0.9; // Only the paid item gets discount
-      assert.strictEqual(cart.total, 26.91);
+      assert.strictEqual(cart.total, 26.91); // 29.9 * 0.9 (only paid item gets discount)
     });
   });
 
@@ -158,8 +155,7 @@ describe("Edge Cases", () => {
       // Add promo code
       cart.applyPromoCode("I<3AMAYSIM");
 
-      // Expected: (2*24.90 + 4*39.90 + 29.90) * 0.9
-      const expectedTotal = (49.8 + 159.6 + 29.9) * 0.9;
+      // Expected: (2*24.90 + 4*39.90 + 29.90) * 0.9 = 215.37
       assert.strictEqual(cart.total, 215.37);
     });
   });
