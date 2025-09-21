@@ -37,22 +37,33 @@ export class PricingRulesEngine {
    */
   calculateTotal(items, promoCode) {
     const originalItems = [...items];
+    const ruleResults = this.#applyAllRules(originalItems, promoCode);
+    const subtotal = this.#calculateSubtotal(originalItems);
+    const finalTotal = this.#applyDiscounts(subtotal, ruleResults);
+
+    return {
+      total: Number(finalTotal.toFixed(2)),
+      items: originalItems.concat(ruleResults.additionalItems),
+    };
+  }
+
+  /**
+   * Applies all pricing rules and collects their results.
+   * @private
+   * @param {Array<CartItem>} items - Cart items to process
+   * @param {string|null} promoCode - Optional promo code
+   * @returns {Object} Aggregated rule results
+   */
+  #applyAllRules(items, promoCode) {
     let totalDiscount = 0;
     let additionalItems = [];
     let promoCodeDiscount = 0;
 
-    // Apply each rule independently to the original items
     for (const rule of this.rules) {
-      const result = rule.apply(originalItems, promoCode);
+      const result = rule.apply(items, promoCode);
 
       if (result.discount) {
-        // Validate discount is not negative
-        if (result.discount < 0) {
-          throw new RangeError(
-            `Invalid discount amount: ${result.discount}. Discounts cannot be negative.`,
-          );
-        }
-
+        this.#validateDiscount(result.discount);
         totalDiscount += result.discount;
       }
 
@@ -61,22 +72,68 @@ export class PricingRulesEngine {
       }
 
       if (result.promoCodeDiscount) {
-        // Validate promo code discount percentage
-        if (result.promoCodeDiscount < 0 || result.promoCodeDiscount > 1) {
-          throw new RangeError(
-            `Invalid promo code discount: ${result.promoCodeDiscount}. Must be between 0 and 1.`,
-          );
-        }
-
+        this.#validatePromoCodeDiscount(result.promoCodeDiscount);
         promoCodeDiscount = result.promoCodeDiscount;
       }
     }
 
+    return { totalDiscount, additionalItems, promoCodeDiscount };
+  }
+
+  /**
+   * Validates that a discount amount is non-negative.
+   * @private
+   * @param {number} discount - Discount amount to validate
+   * @throws {RangeError} When discount is negative
+   */
+  #validateDiscount(discount) {
+    if (discount < 0) {
+      throw new RangeError(
+        `Invalid discount amount: ${discount}. Discounts cannot be negative.`,
+      );
+    }
+  }
+
+  /**
+   * Validates that a promo code discount percentage is within valid range.
+   * @private
+   * @param {number} promoDiscount - Promo discount percentage (0-1)
+   * @throws {RangeError} When discount is outside 0-1 range
+   */
+  #validatePromoCodeDiscount(promoDiscount) {
+    if (promoDiscount < 0 || promoDiscount > 1) {
+      throw new RangeError(
+        `Invalid promo code discount: ${promoDiscount}. Must be between 0 and 1.`,
+      );
+    }
+  }
+
+  /**
+   * Calculates the subtotal from cart items.
+   * @private
+   * @param {Array<CartItem>} items - Cart items
+   * @returns {number} Subtotal before discounts
+   */
+  #calculateSubtotal(items) {
     let subtotal = 0;
 
-    for (const item of originalItems) {
+    for (const item of items) {
       subtotal += item.product.price * item.quantity;
     }
+
+    return subtotal;
+  }
+
+  /**
+   * Applies discounts to the subtotal with validation.
+   * @private
+   * @param {number} subtotal - Original subtotal
+   * @param {Object} ruleResults - Aggregated rule results
+   * @returns {number} Final total after all discounts
+   * @throws {RangeError} When discounts exceed subtotal or result in negative total
+   */
+  #applyDiscounts(subtotal, ruleResults) {
+    const { totalDiscount, promoCodeDiscount } = ruleResults;
 
     // Apply absolute discounts first
     const totalAfterDiscounts = subtotal - totalDiscount;
@@ -99,9 +156,6 @@ export class PricingRulesEngine {
       );
     }
 
-    return {
-      total: Number(finalTotal.toFixed(2)),
-      items: originalItems.concat(additionalItems),
-    };
+    return finalTotal;
   }
 }
