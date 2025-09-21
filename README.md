@@ -66,6 +66,7 @@ import {
   PromoCodeRule,
 } from "./src/index.js";
 
+// Set up pricing rules
 const pricingRules = [
   new ThreeForTwoRule("ult_small"),
   new BulkDiscountRule("ult_large", 4, 39.9),
@@ -73,11 +74,13 @@ const pricingRules = [
   new PromoCodeRule("I<3AMAYSIM", 10),
 ];
 
-const cart = new ShoppingCart(pricingRules);
+// Create cart and add items
+const cart = ShoppingCart.new(pricingRules);
 cart.add(products.ult_small);
 cart.add(products.ult_large, "I<3AMAYSIM");
 
-console.log(cart.total); // Final price
+console.log(cart.total); // 62.82 (with 10% discount)
+console.log(cart.items); // Array of cart items
 ```
 
 ## Architecture
