@@ -6,7 +6,7 @@ import { PricingRule } from "../src/pricing/PricingRule.js";
 
 // Mock rules for testing edge cases
 class NegativeDiscountRule extends PricingRule {
-  apply(items) {
+  apply(_items) {
     return {
       discount: -10, // Invalid negative discount
       additionalItems: [],
@@ -33,7 +33,7 @@ class InvalidPromoRule extends PricingRule {
     this.percentage = percentage;
   }
 
-  apply(items, promoCode) {
+  apply(_items, promoCode) {
     if (promoCode === "INVALID") {
       return {
         discount: 0,
