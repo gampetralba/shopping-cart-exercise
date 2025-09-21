@@ -91,38 +91,6 @@ Uses **Strategy Pattern** for flexible pricing rules:
 - Each rule is independently testable
 - Rules can be combined or used separately
 
-## Structure
-
-```
-src/
-├── cart/ShoppingCart.js          # Main cart implementation
-├── catalog/products.js           # Product catalog definitions
-├── models/
-│   ├── Product.js               # Product model
-│   └── CartItem.js              # Cart item model
-├── pricing/
-│   ├── PricingRulesEngine.js    # Core pricing calculation engine
-│   ├── PricingRule.js           # Base pricing rule interface
-│   └── rules/                   # Individual promotion rules
-│       ├── ThreeForTwoRule.js   # 3-for-2 deal implementation
-│       ├── BulkDiscountRule.js  # Bulk discount implementation
-│       ├── BundleRule.js        # Free bundle implementation
-│       ├── PromoCodeRule.js     # Promo code discount implementation
-│       └── BasePricingRule.js   # Default pricing fallback
-└── index.js                     # Main exports
-
-test/                            # Comprehensive test suite (50+ tests)
-├── scenarios.test.js            # Required test scenarios
-├── edge-cases.test.js           # Edge case coverage
-├── rule-order-independence.test.js  # Rule order validation
-├── pricing-validation.test.js   # Input validation tests
-└── ...                         # Additional test files
-
-examples/                        # Demo and usage examples
-├── demo.js                     # Required scenarios demo
-└── custom-rules.js             # Custom rule examples
-```
-
 ## Testing
 
 - **50+ tests** covering all scenarios, edge cases, and validation
