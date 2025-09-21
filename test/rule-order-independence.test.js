@@ -125,7 +125,7 @@ describe("Rule Order Independence", () => {
     assert.equal(cart2.total, cart3.total);
   });
 
-  test("bundle items appear in same order regardless of rule order", () => {
+  test("bundle rule adds free items correctly regardless of rule order", () => {
     const cart1 = new ShoppingCart([threeForTwo, bundle]);
     cart1.add(products.ult_medium);
 
