@@ -93,10 +93,13 @@ describe("Input Validation", () => {
       }, TypeError);
     });
 
-    test("ShoppingCart constructor with null pricing rules", () => {
-      assert.throws(() => {
-        new ShoppingCart(null);
-      }, TypeError);
+    test("ShoppingCart constructor with null pricing rules defaults to base pricing", () => {
+      assert.doesNotThrow(() => {
+        const cart = new ShoppingCart(null);
+        cart.add(products.ult_small);
+        // Should use base pricing (no discounts)
+        assert.equal(cart.total, 24.9);
+      });
     });
   });
 });

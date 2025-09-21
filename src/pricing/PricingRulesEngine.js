@@ -10,7 +10,22 @@ export class PricingRulesEngine {
    * @param {Array<PricingRule>} [rules=[]] - Array of pricing rules to apply
    */
   constructor(rules = []) {
-    this.rules = rules.length > 0 ? rules : [new BasePricingRule()];
+    this.rules = this.#initializeRules(rules);
+  }
+
+  /**
+   * Initializes pricing rules, using base pricing as fallback when no rules provided.
+   * @private
+   * @param {Array<PricingRule>} rules - Array of pricing rules
+   * @returns {Array<PricingRule>} Initialized rules array
+   */
+  #initializeRules(rules) {
+    // When no rules are provided, use base pricing (no discounts)
+    if (!rules || rules.length === 0) {
+      return [new BasePricingRule()];
+    }
+
+    return rules;
   }
 
   /**
@@ -37,6 +52,7 @@ export class PricingRulesEngine {
             `Invalid discount amount: ${result.discount}. Discounts cannot be negative.`,
           );
         }
+
         totalDiscount += result.discount;
       }
 
@@ -51,6 +67,7 @@ export class PricingRulesEngine {
             `Invalid promo code discount: ${result.promoCodeDiscount}. Must be between 0 and 1.`,
           );
         }
+
         promoCodeDiscount = result.promoCodeDiscount;
       }
     }
