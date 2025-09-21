@@ -40,7 +40,7 @@ export class ShoppingCart {
    * @throws {TypeError|RangeError} When item is invalid or promo code is invalid
    */
   add(item, promoCode) {
-    this.addItem(item);
+    this.#addItem(item);
 
     if (promoCode) {
       this.applyPromoCode(promoCode);
@@ -48,13 +48,14 @@ export class ShoppingCart {
   }
 
   /**
-   * Adds a product to the cart (internal method).
+   * Adds a product to the cart.
    * If the product already exists, increments the quantity.
+   * @private
    * @param {Product} product - Product to add
    * @throws {TypeError|RangeError} When product is invalid
    */
-  addItem(product) {
-    this._validateProduct(product);
+  #addItem(product) {
+    this.#validateProduct(product);
 
     const existingItem = this._items.find(
       (cartItem) => cartItem.product.code === product.code,
@@ -112,7 +113,7 @@ export class ShoppingCart {
    * @param {Object} product - Product object to validate
    * @throws {TypeError|RangeError} When product is invalid
    */
-  _validateProduct(product) {
+  #validateProduct(product) {
     if (!product || typeof product !== "object") {
       throw new TypeError("Product must be a valid object");
     }
