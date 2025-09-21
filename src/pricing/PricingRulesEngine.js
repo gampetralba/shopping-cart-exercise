@@ -31,6 +31,12 @@ export class PricingRulesEngine {
       const result = rule.apply(originalItems, promoCode);
 
       if (result.discount) {
+        // Validate discount is not negative
+        if (result.discount < 0) {
+          throw new RangeError(
+            `Invalid discount amount: ${result.discount}. Discounts cannot be negative.`,
+          );
+        }
         totalDiscount += result.discount;
       }
 
@@ -39,6 +45,12 @@ export class PricingRulesEngine {
       }
 
       if (result.promoCodeDiscount) {
+        // Validate promo code discount percentage
+        if (result.promoCodeDiscount < 0 || result.promoCodeDiscount > 1) {
+          throw new RangeError(
+            `Invalid promo code discount: ${result.promoCodeDiscount}. Must be between 0 and 1.`,
+          );
+        }
         promoCodeDiscount = result.promoCodeDiscount;
       }
     }
@@ -52,9 +64,23 @@ export class PricingRulesEngine {
     // Apply absolute discounts first
     const totalAfterDiscounts = subtotal - totalDiscount;
 
+    // Ensure discounts don't exceed the subtotal
+    if (totalAfterDiscounts < 0) {
+      throw new RangeError(
+        `Total discount ($${totalDiscount}) exceeds subtotal ($${subtotal}).`,
+      );
+    }
+
     // Apply percentage discount (promo code) to the discounted total
     const finalTotal =
       totalAfterDiscounts - totalAfterDiscounts * promoCodeDiscount;
+
+    // Final validation - ensure total is not negative
+    if (finalTotal < 0) {
+      throw new RangeError(
+        `Invalid final total: $${finalTotal}. Total cannot be negative.`,
+      );
+    }
 
     return {
       total: Number(finalTotal.toFixed(2)),
