@@ -14,7 +14,6 @@ export class BasePricingRule extends PricingRule {
    */
   apply(items, _promoCode) {
     return {
-      processedItems: items,
       discount: 0,
       additionalItems: [],
     };

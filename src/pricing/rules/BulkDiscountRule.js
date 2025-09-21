@@ -31,7 +31,7 @@ export class BulkDiscountRule extends PricingRule {
     );
 
     if (!targetItem || targetItem.quantity < this.minQuantity) {
-      return { processedItems: items, discount: 0, additionalItems: [] };
+      return { discount: 0, additionalItems: [] };
     }
 
     const originalTotal = targetItem.product.price * targetItem.quantity;
@@ -39,7 +39,6 @@ export class BulkDiscountRule extends PricingRule {
     const discount = originalTotal - discountedTotal;
 
     return {
-      processedItems: items,
       discount: discount,
       additionalItems: [],
     };

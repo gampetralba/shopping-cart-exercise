@@ -30,7 +30,7 @@ export class BundleRule extends PricingRule {
     );
 
     if (!triggerItem) {
-      return { processedItems: items, discount: 0, additionalItems: [] };
+      return { discount: 0, additionalItems: [] };
     }
 
     const freeBundleItem = new CartItem(
@@ -39,7 +39,6 @@ export class BundleRule extends PricingRule {
     );
 
     return {
-      processedItems: items,
       discount: 0,
       additionalItems: [freeBundleItem],
     };

@@ -25,11 +25,10 @@ export class PromoCodeRule extends PricingRule {
    */
   apply(items, promoCode) {
     if (promoCode !== this.validCode) {
-      return { processedItems: items, discount: 0, additionalItems: [] };
+      return { discount: 0, additionalItems: [] };
     }
 
     return {
-      processedItems: items,
       discount: 0,
       additionalItems: [],
       promoCodeDiscount: this.discountPercentage / 100,

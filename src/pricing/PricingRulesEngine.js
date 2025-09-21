@@ -15,29 +15,27 @@ export class PricingRulesEngine {
 
   /**
    * Calculates the total price after applying all pricing rules.
+   * Rules are applied independently to ensure order doesn't affect the result.
    * @param {Array<CartItem>} items - Cart items to process
    * @param {string|null} promoCode - Optional promo code to apply
    * @returns {{total: number, items: Array<CartItem>}} Final total and processed items
    */
   calculateTotal(items, promoCode) {
-    let processedItems = [...items];
-    let discount = 0;
+    const originalItems = [...items];
+    let totalDiscount = 0;
     let additionalItems = [];
     let promoCodeDiscount = 0;
 
+    // Apply each rule independently to the original items
     for (const rule of this.rules) {
-      const result = rule.apply(processedItems, promoCode);
+      const result = rule.apply(originalItems, promoCode);
 
       if (result.discount) {
-        discount += result.discount;
+        totalDiscount += result.discount;
       }
 
       if (result.additionalItems) {
         additionalItems = additionalItems.concat(result.additionalItems);
-      }
-
-      if (result.processedItems) {
-        processedItems = result.processedItems;
       }
 
       if (result.promoCodeDiscount) {
@@ -47,18 +45,20 @@ export class PricingRulesEngine {
 
     let subtotal = 0;
 
-    for (const item of processedItems) {
+    for (const item of originalItems) {
       subtotal += item.product.price * item.quantity;
     }
 
-    const totalAfterDiscounts = subtotal - discount;
+    // Apply absolute discounts first
+    const totalAfterDiscounts = subtotal - totalDiscount;
 
+    // Apply percentage discount (promo code) to the discounted total
     const finalTotal =
       totalAfterDiscounts - totalAfterDiscounts * promoCodeDiscount;
 
     return {
       total: Number(finalTotal.toFixed(2)),
-      items: processedItems.concat(additionalItems),
+      items: originalItems.concat(additionalItems),
     };
   }
 }
