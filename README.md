@@ -97,12 +97,12 @@ src/
 ├── pricing/rules/           # Individual promotion rules
 └── index.js                # Main exports
 
-test/                       # Comprehensive test suite (40+ tests)
+test/                       # Comprehensive test suite (50+ tests)
 examples/                   # Demo and usage examples
 ```
 
 ## Testing
 
-- **40+ tests** covering all scenarios, edge cases, and validation
+- **50+ tests** covering all scenarios, edge cases, and validation
 - **100% requirement coverage** - all scenarios pass
 - Run with `npm test`
