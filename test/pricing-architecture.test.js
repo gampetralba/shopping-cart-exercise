@@ -4,7 +4,7 @@ import { ShoppingCart } from "../src/cart/ShoppingCart.js";
 import { products } from "../src/catalog/products.js";
 
 describe("Pricing Architecture", () => {
-  test("base pricing still works", () => {
+  test("cart without rules uses base pricing", () => {
     const cart = ShoppingCart.new();
     cart.add(products.ult_small);
     cart.add(products.ult_large);
