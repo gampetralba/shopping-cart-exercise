@@ -19,11 +19,11 @@ export class PromoCodeRule extends PricingRule {
 
   /**
    * Applies percentage discount if the promo code matches.
-   * @param {Array<CartItem>} items - Cart items to process
+   * @param {Array<CartItem>} _items - Cart items to process (not used by this rule)
    * @param {string|null} promoCode - Applied promo code to validate
    * @returns {Object} Result with promo code discount percentage
    */
-  apply(items, promoCode) {
+  apply(_items, promoCode) {
     if (promoCode !== this.validCode) {
       return { discount: 0, additionalItems: [] };
     }

@@ -8,11 +8,11 @@ import { PricingRule } from "../PricingRule.js";
 export class BasePricingRule extends PricingRule {
   /**
    * Returns items unchanged with no discounts applied.
-   * @param {Array<CartItem>} items - Cart items to process
+   * @param {Array<CartItem>} _items - Cart items to process (not used by this rule)
    * @param {string|null} _promoCode - Applied promo code (not used by this rule)
    * @returns {Object} Result with no modifications
    */
-  apply(items, _promoCode) {
+  apply(_items, _promoCode) {
     return {
       discount: 0,
       additionalItems: [],
